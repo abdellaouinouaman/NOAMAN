@@ -245,19 +245,19 @@
                         <label class="block text-sm font-medium text-slate-300 mb-2">Options supplémentaires</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
-                                <input type="checkbox" class="calc-option accent-orange-500" value="800">
+                                <input type="checkbox" class="calc-option accent-orange-500" value="800" data-label="Panneau d'administration">
                                 <span class="text-sm text-slate-300">Panneau d'administration (+800 DH)</span>
                             </label>
                             <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
-                                <input type="checkbox" class="calc-option accent-orange-500" value="500">
+                                <input type="checkbox" class="calc-option accent-orange-500" value="500" data-label="Support Multilingue">
                                 <span class="text-sm text-slate-300">Support Multilingue (+500 DH)</span>
                             </label>
                             <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
-                                <input type="checkbox" class="calc-option accent-orange-500" value="600">
+                                <input type="checkbox" class="calc-option accent-orange-500" value="600" data-label="Base de données & API REST">
                                 <span class="text-sm text-slate-300">Base de données & API REST (+600 DH)</span>
                             </label>
                             <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
-                                <input type="checkbox" class="calc-option accent-orange-500" value="400">
+                                <input type="checkbox" class="calc-option accent-orange-500" value="400" data-label="Hébergement & Déploiement">
                                 <span class="text-sm text-slate-300">Hébergement & Déploiement (+400 DH)</span>
                             </label>
                         </div>
@@ -268,7 +268,7 @@
                             <span class="text-sm text-slate-400">Estimation Totale Indicative :</span>
                             <div class="text-3xl font-extrabold text-orange-400 font-mono" id="calc-total">1500 DH</div>
                         </div>
-                        <a href="https://wa.me/212780976000?text=Bonjour%20Noamane,%20je%20souhaite%20discuter%20d'un%20devis%20pour%20mon%20projet." target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold flex items-center justify-center gap-2 transition-all">
+                        <a id="whatsapp-btn" href="#" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold flex items-center justify-center gap-2 transition-all">
                             <i class="fab fa-whatsapp text-lg"></i> Discuter sur WhatsApp
                         </a>
                     </div>
@@ -314,7 +314,7 @@
                     </div>
                 </div>
 
-                <!-- FORMULAIRE DE CONTACT -->
+                <!-- FORMULAIRE DE CONTACT AVEC MENTION PROTECTION DES DONNÉES -->
                 <form action="https://formspree.io/f/abdellaouinouaman@gmail.com" method="POST" class="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-4">
                     <div>
                         <label class="block text-xs font-mono text-slate-400 mb-1">Nom complet</label>
@@ -328,9 +328,16 @@
                         <label class="block text-xs font-mono text-slate-400 mb-1">Message</label>
                         <textarea name="message" rows="4" required placeholder="Décrivez votre projet..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-slate-200 focus:border-orange-500 outline-none text-sm"></textarea>
                     </div>
+                    
                     <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold transition-all">
                         Envoyer le Message
                     </button>
+
+                    <!-- NOTICE PROTECTION DONNÉES PERSONNELLES -->
+                    <p class="text-[11px] text-slate-500 flex items-center gap-1.5 pt-2">
+                        <i class="fas fa-lock text-emerald-500"></i>
+                        Vos données personnelles sont uniquement utilisées pour traiter votre demande de devis et restent strictly confidentielles.
+                    </p>
                 </form>
             </div>
         </div>
@@ -350,7 +357,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT CALCULATEUR ET MENU MOBILE -->
+    <!-- SCRIPTS CALCULATEUR & WHATSAPP DYNAMIQUE & MENU MOBILE -->
     <script>
         // Menu Mobile Toggle
         const menuBtn = document.getElementById('menu-btn');
@@ -359,23 +366,40 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Calculateur de devis dynamique
+        // Calculateur de devis & Génération du lien WhatsApp personnalisé
         const calcType = document.getElementById('calc-type');
         const calcOptions = document.querySelectorAll('.calc-option');
         const calcTotal = document.getElementById('calc-total');
+        const whatsappBtn = document.getElementById('whatsapp-btn');
 
-        function updateTotal() {
+        function updateCalculatorAndWhatsApp() {
             let base = parseInt(calcType.value);
+            let selectedOptions = [];
+
             calcOptions.forEach(opt => {
                 if (opt.checked) {
                     base += parseInt(opt.value);
+                    selectedOptions.push(opt.getAttribute('data-label'));
                 }
             });
-            calcTotal.textContent = base + ' DH';
+
+            const totalText = base + ' DH';
+            calcTotal.textContent = totalText;
+
+            // Construction du message WhatsApp avec informations du projet
+            const projectType = calcType.options[calcType.selectedIndex].text;
+            let optionsText = selectedOptions.length > 0 ? `\n- Options : ${selectedOptions.join(', ')}` : '';
+
+            const message = `Bonjour Noamane,\n\nJe souhaite discuter d'un devis pour mon projet :\n- Service : ${projectType}${optionsText}\n- Estimation : ${totalText}\n\nMerci de me recontacter !`;
+
+            whatsappBtn.href = `https://wa.me/212780976000?text=${encodeURIComponent(message)}`;
         }
 
-        calcType.addEventListener('change', updateTotal);
-        calcOptions.forEach(opt => opt.addEventListener('change', updateTotal));
+        calcType.addEventListener('change', updateCalculatorAndWhatsApp);
+        calcOptions.forEach(opt => opt.addEventListener('change', updateCalculatorAndWhatsApp));
+
+        // Initialisation au chargement
+        updateCalculatorAndWhatsApp();
     </script>
 </body>
 </html>
