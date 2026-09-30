@@ -1,196 +1,381 @@
 <!DOCTYPE html>
-<html lang="fr" id="html-tag">
+<html lang="fr" class="dark">
 <head>
     <meta charset="UTF-8">
-    <!-- هذا السطر هو الأهم لجعل الموقع متوافقاً مع حجم شاشة الهاتف -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NOAMANE ABDELAOUI - Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{N.net} | Abdellaoui Noamane - Full-stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#F97316',
+                            dark: '#0B0F17',
+                            card: '#111827',
+                            accent: '#6366F1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #007bff;
-            --dark: #121212;
-            --card-bg: #1e1e1e;
-            --text: #ffffff;
-            --gray: #a0a0a0;
-            --whatsapp: #25D366;
-            --instagram: #E1306C;
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .font-mono { font-family: 'Fira Code', monospace; }
+        .bg-grid-pattern {
+            background-size: 30px 30px;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
         }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--dark);
-            color: var(--text);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 15px; /* مسافة أمان للجوانب في الهاتف */
-        }
-
-        /* تنسيق أزرار اللغات لتناسب الإبهام */
-        .lang-switcher {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-            background: #2a2a2a;
-            padding: 6px 12px;
-            border-radius: 25px;
-            border: 1px solid #333;
-        }
-
-        .lang-btn {
-            background: transparent;
-            color: var(--gray);
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.3s;
-            border-radius: 20px;
-        }
-
-        .lang-btn.active { color: white; background: var(--primary); }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 35px 20px;
-            border-radius: 30px;
-            text-align: center;
-            width: 100%;
-            max-width: 380px; /* حجم مثالي لمعظم الهواتف */
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            border: 1px solid #333;
-        }
-
-        /* صورة البروفايل مع تأثير النبض */
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            margin-bottom: 15px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            animation: pulse-animation 4s infinite ease-in-out;
-        }
-
-        .profile-img:active { transform: scale(1.1); } /* تكبير عند اللمس في الهاتف */
-
-        @keyframes pulse-animation {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); }
-        }
-
-        h1 { margin: 10px 0; font-size: 22px; letter-spacing: 1px; }
-        #tagline { color: var(--primary); font-weight: 600; margin-bottom: 15px; font-size: 14px; }
-        #description { color: var(--gray); line-height: 1.5; font-size: 15px; margin-bottom: 25px; }
-
-        .links { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-
-        .link-btn {
-            text-decoration: none;
-            color: white;
-            background-color: #2a2a2a;
-            padding: 16px 20px; /* مساحة أكبر للضغط المريح */
-            border-radius: 18px;
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .link-btn i { font-size: 22px; }
-        .link-btn:active { background-color: #383838; transform: scale(0.98); }
-
-        .whatsapp i { color: var(--whatsapp); }
-        .instagram i { color: var(--instagram); }
-        .phone i { color: var(--primary); }
-
-        [dir="rtl"] .link-btn { flex-direction: row-reverse; }
-
-        .footer-text { margin-top: 25px; font-size: 11px; color: #444; letter-spacing: 1px; }
     </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 transition-colors duration-300 antialiased min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
 
-    <div class="lang-switcher">
-        <button class="lang-btn active" onclick="setLanguage('fr')">FR</button>
-        <button class="lang-btn" onclick="setLanguage('en')">EN</button>
-        <button class="lang-btn" onclick="setLanguage('ar')">AR</button>
-    </div>
+    <!-- BARRE DE NAVIGATION -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- LOGO -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="font-mono text-2xl font-bold bg-gradient-to-r from-orange-500 to-indigo-500 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
+                        {N.net}
+                    </div>
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                        #OPENTOWORK
+                    </span>
+                </a>
 
-    <div class="card">
-        <!-- تأكد أن اسم الصورة هو photo.jpg في GitHub -->
-        <img src="noman.jpeg" alt="NOAMANE ABDELAOUI" class="profile-img">
-        
-        <h1>NOAMANE ABDELAOUI</h1>
-        <div id="tagline">Développeur & Technicien Software</div>
-        
-        <p id="description">
-            Spécialiste en développement d'applications desktop et sites web. Expert en résolution de problèmes software et maîtrise avancée de la bureautique.
-        </p>
-        
-        <div class="links">
-            <a href="https://wa.me/212780976000" class="link-btn whatsapp" target="_blank">
-                <span>WhatsApp</span>
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            
-            <a href="https://www.instagram.com/nouamanabdellaoui?igsh=dGJsODl0aW1vcDBh" class="link-btn instagram" target="_blank">
-                <span>Instagram</span>
-                <i class="fab fa-instagram"></i>
-            </a>
-            
-            <a href="tel:+212780976000" class="link-btn phone">
-                <span id="txt-call">Appeler Directement</span>
-                <i class="fas fa-phone-alt"></i>
-            </a>
+                <!-- MENU BUREAU -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                    <a href="#services" class="hover:text-orange-400 transition-colors">Services</a>
+                    <a href="#skills" class="hover:text-orange-400 transition-colors">Compétences</a>
+                    <a href="#calculator" class="hover:text-orange-400 transition-colors">Devis</a>
+                    <a href="#contact" class="hover:text-orange-400 transition-colors">Contact</a>
+                </nav>
+
+                <!-- BOUTONS SOCIAUX ET ACTION -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="https://github.com/abdellaouinouaman" target="_blank" rel="noopener" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-orange-500 transition-all">
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/noamane-abdellaoui-8848a6239" target="_blank" rel="noopener" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-orange-500 transition-all">
+                        <i class="fab fa-linkedin text-lg"></i>
+                    </a>
+                    <a href="#contact" class="px-4 py-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-orange-500 to-amber-600 text-white hover:opacity-90 shadow-lg shadow-orange-500/20 transition-all">
+                        Me Contacter
+                    </a>
+                </div>
+
+                <!-- BOUTON MENU MOBILE -->
+                <button id="menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="footer-text">© 2026 NOAMANE ABDELAOUI</div>
-    </div>
+        <!-- MENU MOBILE -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-slate-950 px-4 pt-2 pb-6 space-y-3">
+            <a href="#services" class="block py-2 text-slate-300 hover:text-orange-400">Services</a>
+            <a href="#skills" class="block py-2 text-slate-300 hover:text-orange-400">Compétences</a>
+            <a href="#calculator" class="block py-2 text-slate-300 hover:text-orange-400">Devis</a>
+            <a href="#contact" class="block py-2 text-slate-300 hover:text-orange-400">Contact</a>
+            <div class="flex items-center gap-4 pt-4 border-t border-slate-800">
+                <a href="https://github.com/abdellaouinouaman" target="_blank" class="text-slate-400 hover:text-white"><i class="fab fa-github text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/noamane-abdellaoui-8848a6239" target="_blank" class="text-slate-400 hover:text-white"><i class="fab fa-linkedin text-xl"></i></a>
+                <a href="tel:0780976000" class="text-slate-400 hover:text-white"><i class="fas fa-phone text-xl"></i></a>
+            </div>
+        </div>
+    </header>
 
+    <!-- BANNIÈRE EN-TÊTE / HERO -->
+    <section class="relative py-24 overflow-hidden bg-grid-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-mono">
+                        <i class="fas fa-code"></i> Développeur Full Stack (Web & Desktop)
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-none">
+                        Solutions Digitales Sur Mesure par <span class="bg-gradient-to-r from-orange-400 via-amber-300 to-indigo-400 bg-clip-text text-transparent">N.net</span>
+                    </h1>
+                    
+                    <p class="text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0">
+                        Bonjour ! Je suis <strong class="text-slate-200">Abdellaoui Noamane</strong>, développeur full-stack basé à El Jadida, Maroc. Je conçois des applications web et logiciels desktop robustes, modernes et entièrement personnalisés.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <a href="#calculator" class="px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-lg shadow-orange-500/25 transition-all">
+                            Demander un Devis
+                        </a>
+                        <a href="https://www.linkedin.com/in/noamane-abdellaoui-8848a6239" target="_blank" class="px-6 py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 hover:border-slate-700 font-semibold flex items-center gap-2 transition-all">
+                            <i class="fab fa-linkedin text-blue-400"></i> Profil LinkedIn
+                        </a>
+                    </div>
+
+                    <!-- BADGES DE COMPÉTENCES -->
+                    <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-3 font-mono text-xs text-slate-400">
+                        <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800">C# / .NET</span>
+                        <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800">Java / Spring</span>
+                        <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800">PHP / Laravel</span>
+                        <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800">React & JS</span>
+                        <span class="px-3 py-1 rounded-md bg-slate-900 border border-slate-800">SQL Server & MySQL</span>
+                    </div>
+                </div>
+
+                <!-- CARTE VIRTUELLE / BADGE DÉVELOPPEUR -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="w-full max-w-md p-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 shadow-2xl relative overflow-hidden group">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-orange-500/10 rounded-full blur-3xl group-hover:bg-orange-500/20 transition-all"></div>
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                            <div class="font-mono text-2xl font-bold text-orange-400">{N.net}</div>
+                            <span class="text-xs font-mono text-slate-500">ID: AB-2026</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-100">ABDELLAOUI NOAMANE</h3>
+                                <p class="text-sm text-orange-400 font-medium">Full-stack Developer</p>
+                            </div>
+
+                            <div class="space-y-2 text-xs text-slate-400">
+                                <p class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-orange-500 w-4"></i> El Jadida, Casablanca-Settat, Maroc</p>
+                                <p class="flex items-center gap-2"><i class="fas fa-envelope text-orange-500 w-4"></i> abdellaouinouaman@gmail.com</p>
+                                <p class="flex items-center gap-2"><i class="fas fa-phone text-orange-500 w-4"></i> +212 7 80 97 60 00</p>
+                                <p class="flex items-center gap-2"><i class="fab fa-github text-orange-500 w-4"></i> github.com/abdellaouinouaman</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-500 font-mono">
+                            <span>DEVELOPPER</span>
+                            <span class="text-emerald-400">● Disponible pour projets</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION SERVICES -->
+    <section id="services" class="py-20 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-slate-100">Services & Expertise</h2>
+                <p class="text-slate-400 mt-2">Développement complet d'applications de bout en bout</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- SERVICE 1 -->
+                <div class="p-8 rounded-2xl bg-slate-950 border border-slate-800 hover:border-orange-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Développement Web</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Création de sites vitrines, plateformes e-commerce et applications web dynamiques avec React, PHP, Laravel et Node.js.
+                    </p>
+                    <ul class="text-xs text-slate-500 space-y-2 font-mono">
+                        <li>✓ Responsive Design & SEO</li>
+                        <li>✓ Architecture REST API</li>
+                        <li>✓ Intégration Bases de données</li>
+                    </ul>
+                </div>
+
+                <!-- SERVICE 2 -->
+                <div class="p-8 rounded-2xl bg-slate-950 border border-slate-800 hover:border-orange-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Applications Desktop</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Conception de logiciels de gestion d'entreprise, facturation et stock sous C# (.NET WinForms) et Java (Swing/FX).
+                    </p>
+                    <ul class="text-xs text-slate-500 space-y-2 font-mono">
+                        <li>✓ Logiciels de Facturation</li>
+                        <li>✓ Gestion de Stock & Caisse</li>
+                        <li>✓ Impression de Chèques / Doc</li>
+                    </ul>
+                </div>
+
+                <!-- SERVICE 3 -->
+                <div class="p-8 rounded-2xl bg-slate-950 border border-slate-800 hover:border-orange-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Bases de Données & Cloud</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Modélisation, optimisation et déploiement de bases de données relationnelles et Cloud pour vos données d'entreprise.
+                    </p>
+                    <ul class="text-xs text-slate-500 space-y-2 font-mono">
+                        <li>✓ SQL Server, MySQL, PostgreSQL</li>
+                        <li>✓ MongoDB & Firebase</li>
+                        <li>✓ Déploiement Vercel / Render</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION CALCULATEUR DE DEVIS -->
+    <section id="calculator" class="py-20 border-t border-slate-800/80">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-100">Estimateur de Devis de Projet</h2>
+                <p class="text-slate-400 mt-2">Obtenez une estimation rapide pour la réalisation de votre projet</p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-10 shadow-xl">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Type de projet</label>
+                        <select id="calc-type" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-slate-200 focus:border-orange-500 outline-none">
+                            <option value="1500">Site Web Vitrine Moderne (À partir de 1500 DH)</option>
+                            <option value="3500">Application Web / Marketplace MERN (À partir de 3500 DH)</option>
+                            <option value="2500">Logiciel Desktop de Gestion / Facturation C# (À partir de 2500 DH)</option>
+                            <option value="1200">Automation Excel / Script Spécifique (À partir de 1200 DH)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Options supplémentaires</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
+                                <input type="checkbox" class="calc-option accent-orange-500" value="800">
+                                <span class="text-sm text-slate-300">Panneau d'administration (+800 DH)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
+                                <input type="checkbox" class="calc-option accent-orange-500" value="500">
+                                <span class="text-sm text-slate-300">Support Multilingue (+500 DH)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
+                                <input type="checkbox" class="calc-option accent-orange-500" value="600">
+                                <span class="text-sm text-slate-300">Base de données & API REST (+600 DH)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
+                                <input type="checkbox" class="calc-option accent-orange-500" value="400">
+                                <span class="text-sm text-slate-300">Hébergement & Déploiement (+400 DH)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <span class="text-sm text-slate-400">Estimation Totale Indicative :</span>
+                            <div class="text-3xl font-extrabold text-orange-400 font-mono" id="calc-total">1500 DH</div>
+                        </div>
+                        <a href="https://wa.me/212780976000?text=Bonjour%20Noamane,%20je%20souhaite%20discuter%20d'un%20devis%20pour%20mon%20projet." target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold flex items-center justify-center gap-2 transition-all">
+                            <i class="fab fa-whatsapp text-lg"></i> Discuter sur WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION CONTACT -->
+    <section id="contact" class="py-20 bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-bold text-slate-100">Contactez-moi</h2>
+                    <p class="text-slate-400">
+                        Un projet en tête ou besoin d'une solution logicielle sur mesure ? N'hésitez pas à me contacter directement.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <a href="mailto:abdellaouinouaman@gmail.com" class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all">
+                            <div class="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <p class="text-xs text-slate-500">Email</p>
+                                <p class="text-sm font-semibold text-slate-200">abdellaouinouaman@gmail.com</p>
+                            </div>
+                        </a>
+
+                        <a href="tel:0780976000" class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <p class="text-xs text-slate-500">Téléphone / WhatsApp</p>
+                                <p class="text-sm font-semibold text-slate-200">+212 7 80 97 60 00</p>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/noamane-abdellaoui-8848a6239" target="_blank" class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center"><i class="fab fa-linkedin"></i></div>
+                            <div>
+                                <p class="text-xs text-slate-500">LinkedIn</p>
+                                <p class="text-sm font-semibold text-slate-200">Noamane Abdellaoui</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FORMULAIRE DE CONTACT -->
+                <form action="https://formspree.io/f/abdellaouinouaman@gmail.com" method="POST" class="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-4">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Nom complet</label>
+                        <input type="text" name="name" required placeholder="Votre nom" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-slate-200 focus:border-orange-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Email</label>
+                        <input type="email" name="email" required placeholder="votre.email@exemple.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-slate-200 focus:border-orange-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Message</label>
+                        <textarea name="message" rows="4" required placeholder="Décrivez votre projet..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-slate-200 focus:border-orange-500 outline-none text-sm"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold transition-all">
+                        Envoyer le Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIED DE PAGE / FOOTER -->
+    <footer class="border-t border-slate-800 py-8 bg-slate-950 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="font-mono text-slate-400">
+                &copy; 2026 <span class="text-orange-400 font-bold">{N.net}</span> - Abdellaoui Noamane. Tous droits réservés.
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://github.com/abdellaouinouaman" target="_blank" class="hover:text-slate-300"><i class="fab fa-github text-base"></i></a>
+                <a href="https://www.linkedin.com/in/noamane-abdellaoui-8848a6239" target="_blank" class="hover:text-slate-300"><i class="fab fa-linkedin text-base"></i></a>
+                <a href="mailto:abdellaouinouaman@gmail.com" class="hover:text-slate-300"><i class="fas fa-envelope text-base"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT CALCULATEUR ET MENU MOBILE -->
     <script>
-        const translations = {
-            fr: {
-                tagline: "Développeur & Technicien Software",
-                description: "Spécialiste en développement d'applications desktop et sites web. Expert en résolution de problèmes software et maîtrise avancée de la bureautique.",
-                call: "Appeler Directement",
-                dir: "ltr"
-            },
-            en: {
-                tagline: "Developer & Software Technician",
-                description: "Specialist in desktop and web application development. Expert in software troubleshooting and advanced office automation.",
-                call: "Call Directly",
-                dir: "ltr"
-            },
-            ar: {
-                tagline: "مطور برمجيات وفني سوفت وير",
-                description: "متخصص في تطوير تطبيقات الحاسوب ومواقع الويب. خبير في إصلاح مشاكل السوفت وير ومتخصص في المعلوميات المكتبية (Bureautique).",
-                call: "اتصل بي مباشرة",
-                dir: "rtl"
-            }
-        };
+        // Menu Mobile Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-        function setLanguage(lang) {
-            document.getElementById('tagline').textContent = translations[lang].tagline;
-            document.getElementById('description').textContent = translations[lang].description;
-            document.getElementById('txt-call').textContent = translations[lang].call;
-            document.getElementById('html-tag').setAttribute('dir', translations[lang].dir);
-            
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.textContent.toLowerCase() === lang) btn.classList.add('active');
+        // Calculateur de devis dynamique
+        const calcType = document.getElementById('calc-type');
+        const calcOptions = document.querySelectorAll('.calc-option');
+        const calcTotal = document.getElementById('calc-total');
+
+        function updateTotal() {
+            let base = parseInt(calcType.value);
+            calcOptions.forEach(opt => {
+                if (opt.checked) {
+                    base += parseInt(opt.value);
+                }
             });
+            calcTotal.textContent = base + ' DH';
         }
+
+        calcType.addEventListener('change', updateTotal);
+        calcOptions.forEach(opt => opt.addEventListener('change', updateTotal));
     </script>
 </body>
 </html>
